@@ -35,6 +35,6 @@ int main() {
 	matrix2 = multiply(matrix, matrix2);	//A*A	matrix2 = A^2
 	matrix = multiply(matrix, matrix2);		//A*A^2	matrix = A^3
 	matrix = multiply(matrix, matrix2);		//A^3*A^2 matrix = A^5
-	cout << "Number of flight paths <=5 from LAX to PHX is:" << matrix[LAX][PHX] << endl;
+	cout << "Number of flight paths <=5 from LAX to PHX is:" << matrix[LAX][PHX] << endl; // output num of paths
 	system("pause");
 }
