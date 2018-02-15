@@ -1,3 +1,10 @@
+/*
+	Author: Cuevas Fernando
+	        Rodriguez Michael
+	Class: Algorithms - 335, TUE/THUR
+	Program: Question 6 permutation
+	Assignment: 3
+*/
 #include<iostream>
 using namespace std;
 
