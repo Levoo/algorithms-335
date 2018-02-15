@@ -9,7 +9,7 @@
 #include <string>
 #include <vector>
 
-std::vector <std::string> spatula(std::string); // Yeah, she workin' with the spatula, I know she love flippin' shit -- Drake
+std::vector <std::string> spatula(std::string); // Yeah, she workin' with the spatula, I know she love flippin' shi -- Drake
 
 int main(){
 	std::string uPhrase;   // original phrase that user inputs
