@@ -1,3 +1,10 @@
+/*
+Authors:
+Fernando Cuevas
+Michael Rodriguez
+Class:   CPSC 335 - 12884, Algorithms, Tue/Thur
+Project: Assignment 4, problem #2
+*/
 #include<iostream>
 #include <algorithm>
 using namespace std;
