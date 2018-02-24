@@ -1,8 +1,12 @@
 /*
 	Author: Fernando
-	Class: 
+	Class: CPSC 335 Algorithm TUe/Thur 7 - 8:15pm
+	Proffesor: 
+	Assignment: Quiz 4 takehome, Linked list Merge Sort
 */
 #include <iostream>
+#include <stdlib.h>
+#include <time.h>
 #include <string>
 
 struct node {
@@ -26,7 +30,7 @@ public:
 			tmp = nullptr;
 		}
 		else {
-			node* track = list_head; //else add to list
+			node* track = list_head; //else add to list end to keep order
 			while (track->next != nullptr) {
 				track = track->next;
 			}
@@ -49,11 +53,11 @@ public:
 	
 	void mergeSort(){
 	    node * start = list_head;
-		linked_list half1; //and
+		linked_list half1; // and, have two diffrent lists 
 		linked_list half2;
-		if (list_head == nullptr || listSize == 1) return;
+		if (list_head == nullptr || listSize == 1) return; // if empty or of size 1 then no need
 		else 
-			moses(start, half1, half2);
+			moses(start, half1, half2); //split the list
 
 		sortList(half1); // sort each list
 		sortList(half2);
@@ -63,12 +67,12 @@ public:
 	}
 
 	//merge the two lists
-	node * mergeList(node * h1, node * h2){
+	node * mergeList(node * h1, node * h2){ // recusivly add to new list ml that will return sorted list
 		node* ml = nullptr;
 		if (h1 == nullptr) return h2;
 		else if (h2 == nullptr) return h1;
 
-		if (h1->data <= h2->data) {
+		if (h1->data <= h2->data) { // add smallest to between the two lists and add accordiangly
 			ml = h1;
 			ml->next = mergeList(h1->next, h2);
 		}
@@ -76,7 +80,7 @@ public:
 			ml = h2;
 			ml->next = mergeList(h2->next, h1);
 		}
-		return ml;
+		return ml; //after all recursion return pointer to head 
 	}
 
 	// sort a list
@@ -86,7 +90,7 @@ public:
 		ptr1 = llist.getHead();
 		ptr2 = llist.getHead();
 		ptr2 = ptr2->next;
-		while (ptr1 != nullptr) {
+		while (ptr1 != nullptr) { // go through list and check which is smallest
 			track = ptr1;
 			while (ptr2 != nullptr) {
 				if (ptr2->data < track->data){
@@ -94,7 +98,7 @@ public:
 				}
 				ptr2 = ptr2->next;
 			}
-			tmp = ptr1->data;
+			tmp = ptr1->data; //swap there position
 			ptr1->data = track->data;
 			track->data = tmp;
 			
@@ -125,18 +129,14 @@ public:
 
 int main(){
 	linked_list ll, sortedList;
-	ll.addData(23);
-	ll.addData(18);
-	ll.addData(99);
-	ll.addData(7);
-	ll.addData(30);
-	ll.addData(5);
-	ll.addData(20);
+	std::srand(time(NULL));
+	for (int i = 0; i < 7; i++) {
+		ll.addData(rand() % 100 + 1);
+	}
 
 	ll.displayList("This is the original list: ");
 	ll.mergeSort();
-	ll.displayList("New? ");
-
+	ll.displayList("This is the sorted list:  ");
 
     return 0;
 }
