@@ -80,7 +80,7 @@ public:
 			return  1 + nodes(bt->left) + nodes(bt->right);
 		}
 	}
-	void descendants(treeNode *bt, string newVal) {//part h
+	void descendants(treeNode *bt, string newVal) {//part g
 		if (bt != nullptr) {
 			if (bt->name == newVal) {
 				if(bt->left != nullptr){ preorder(bt->left);}
