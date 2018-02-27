@@ -45,7 +45,6 @@ public:
 				}
 				else { insert(bt->right, newVal); }//traverse if a node exists
 			}
-			
 		}
 	}
 	void preorder(treeNode* bt) {
@@ -69,12 +68,27 @@ public:
 			dipside(bt->left,sp);
 		}
 	}
-	int height(treeNode *bt) {
-		if (bt == nullptr){
-			return 0;
-		}
+	int height(treeNode *bt) {//part d & e
+		if (bt == nullptr){ return 0;}
 		else {
 			return  1 + max(height(bt->left), height(bt->right));
+		}
+	}
+	int nodes(treeNode *bt) {//part f
+		if (bt == nullptr) { return 0;}
+		else {
+			return  1 + nodes(bt->left) + nodes(bt->right);
+		}
+	}
+	void descendants(treeNode *bt, string newVal) {//part h
+		if (bt != nullptr) {
+			if (bt->name == newVal) {
+				if(bt->left != nullptr){ preorder(bt->left);}
+				if(bt->right != nullptr){ preorder(bt->right);}
+				return;
+			}
+			descendants(bt->left,newVal);
+			descendants(bt->right,newVal);
 		}
 	}
 };
@@ -87,11 +101,21 @@ int main() {
 	for (int i = 0; i < 12; i++) {	//populates bst
 		tree.insert(tree.bt_head, months[i]);
 	}
-	cout << "Part b: " << endl;
+	cout << "Part b:\n";	//part b
 	tree.inorder(tree.bt_head);
-	cout << "\n\nPart c:\n";
+	cout << "\n\nPart c:\n";//part c
 	tree.dipside(tree.bt_head,0);
-	cout << "\n\nPart d:\n";
-	cout << "Height= " << tree.height(tree.bt_head) << endl;
+	cout << "\nPart d:\n";//part d
+	cout << "Height= " << tree.height(tree.bt_head);
+	cout << "\n\nPart e:\n";//part e
+	cout << "Left subtree height= " << tree.height(tree.bt_head->left);
+	cout << "\nRight subtree height= " << tree.height(tree.bt_head->right);
+	cout << "\n\nPart f:\n";//part f
+	cout << "Left subtree nodes= " << tree.nodes(tree.bt_head->left);
+	cout << "\nRight subtree nodes= " << tree.nodes(tree.bt_head->right);
+	cout << "\n\nPart g:\n";//part g
+	tree.descendants(tree.bt_head,"Mar");
+	cout << "\n\nPart h:\n";//part h
+
 	system("pause");
 }
