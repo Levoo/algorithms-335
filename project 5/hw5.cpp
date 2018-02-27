@@ -36,7 +36,7 @@ public:
 				}
 				else { insert(bt->left, newVal); }//traverse if a node exists
 			}
-			else{
+			else {
 				if (bt->right == nullptr) { //checks if there is no val in next node
 					treeNode *tmp = new treeNode;//populates and links if none
 					tmp->name = newVal;
@@ -61,21 +61,21 @@ public:
 			inorder(bt->right);
 		}
 	}
-	void dipside(treeNode *bt,int sp) {//part c
+	void dipside(treeNode *bt, int sp) {//part c
 		if (bt != nullptr) {
-			dipside(bt->right,sp+=5);
+			dipside(bt->right, sp += 5);
 			cout << setw(sp) << bt->name << endl;
-			dipside(bt->left,sp);
+			dipside(bt->left, sp);
 		}
 	}
 	int height(treeNode *bt) {//part d & e
-		if (bt == nullptr){ return 0;}
+		if (bt == nullptr) { return 0; }
 		else {
 			return  1 + max(height(bt->left), height(bt->right));
 		}
 	}
 	int nodes(treeNode *bt) {//part f
-		if (bt == nullptr) { return 0;}
+		if (bt == nullptr) { return 0; }
 		else {
 			return  1 + nodes(bt->left) + nodes(bt->right);
 		}
@@ -83,14 +83,28 @@ public:
 	void descendants(treeNode *bt, string newVal) {//part g
 		if (bt != nullptr) {
 			if (bt->name == newVal) {
-				if(bt->left != nullptr){ preorder(bt->left);}
-				if(bt->right != nullptr){ preorder(bt->right);}
+				if (bt->left != nullptr) { preorder(bt->left); }
+				if (bt->right != nullptr) { preorder(bt->right); }
 				return;
 			}
-			descendants(bt->left,newVal);
-			descendants(bt->right,newVal);
+			descendants(bt->left, newVal);
+			descendants(bt->right, newVal);
 		}
 	}
+	bool ancestordotcom(treeNode *bt, string key) { // part h
+		if (bt == nullptr) return false;
+		if (bt->name == key) return true;
+
+		if (ancestordotcom(bt->left, key) || ancestordotcom(bt->right, key)) {
+			cout << bt->name << " ";
+			return true;
+		}
+		return false;
+	}
+	//part i
+	void blackmirror(){}
+	//part j
+	void shutupanddance(){}
 };
 
 int main() {
@@ -104,7 +118,7 @@ int main() {
 	cout << "Part b:\n";	//part b
 	tree.inorder(tree.bt_head);
 	cout << "\n\nPart c:\n";//part c
-	tree.dipside(tree.bt_head,0);
+	tree.dipside(tree.bt_head, 0);
 	cout << "\nPart d:\n";//part d
 	cout << "Height= " << tree.height(tree.bt_head);
 	cout << "\n\nPart e:\n";//part e
@@ -114,8 +128,9 @@ int main() {
 	cout << "Left subtree nodes= " << tree.nodes(tree.bt_head->left);
 	cout << "\nRight subtree nodes= " << tree.nodes(tree.bt_head->right);
 	cout << "\n\nPart g:\n";//part g
-	tree.descendants(tree.bt_head,"Mar");
+	tree.descendants(tree.bt_head, "Mar");
 	cout << "\n\nPart h:\n";//part h
+	tree.ancestordotcom(tree.bt_head, "Sep");
 
 	system("pause");
 }
