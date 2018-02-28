@@ -102,13 +102,40 @@ public:
 		return false;
 	}
 	//part i
-	void blackmirror(){}
+	treeNode* blackmirror(treeNode * bt) {
+		treeNode* tmp = new treeNode;
+		if (bt == nullptr) return nullptr;
+		tmp->name = bt->name;
+		
+		tmp->left = blackmirror(bt->right);
+		tmp->right = blackmirror(bt->left);
+
+		return tmp;
+	}
 	//part j
-	void shutupanddance(){}
+	void lvlcmp(treeNode* og, treeNode* cmp, int lvl, int sp) {
+		if (og == nullptr) return;
+		if (lvl == 1) {
+			cout << setw(sp) << "O.G: " << og->name << " <-> " << "MIRROR:" << cmp->name << " ";
+		}
+		else if (lvl > 1) {
+			lvlcmp(og->left, cmp->right, lvl-1, sp);
+			lvlcmp(og->right, cmp->left, lvl-1, sp);
+		}
+	}
+	void printlvls(treeNode* og, treeNode* cmp) {
+		if (height(og) != height(cmp)) { cout << "Not same height trees!!"; return; }
+		int tHeight = height(og);
+		for (int i = 1; i <= tHeight; i++) {
+			int sp = tHeight - i;
+			lvlcmp(og, cmp, i, sp);
+			std::cout << std::endl;
+		}
+	}
 };
 
 int main() {
-	bst tree;
+	bst tree, mirror_edge;
 	std::string months[12] = { "Jan", "Feb", "Mar" , "Apr" ,
 		"May" , "Jun" , "Jul" , "Aug" ,
 		"Sep" , "Oct" , "Nov" , "Dec" };
@@ -131,6 +158,10 @@ int main() {
 	tree.descendants(tree.bt_head, "Mar");
 	cout << "\n\nPart h:\n";//part h
 	tree.ancestordotcom(tree.bt_head, "Sep");
-
+	cout << "\n\nPart i:\n";
+	mirror_edge.bt_head = tree.blackmirror(tree.bt_head);
+	mirror_edge.dipside(mirror_edge.bt_head, 0);
+	cout << "\n\nPart j:\n";
+	tree.printlvls(tree.bt_head, mirror_edge.bt_head);
 	system("pause");
 }
