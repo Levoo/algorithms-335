@@ -1,4 +1,10 @@
-/* INFO */
+/*
+Authors:
+Fernando Cuevas
+Michael Rodriguez
+Class:   CPSC 335 - 12884, Algorithms, Tue/Thur
+Project: Assignment 5, Binary Search Tree
+*/
 
 #include <iostream>
 #include <iomanip>
@@ -113,22 +119,27 @@ public:
 		return tmp;
 	}
 	//part j
-	void lvlcmp(treeNode* og, treeNode* cmp, int lvl, int sp) {
-		if (og == nullptr) return;
+	void lvlcmp(treeNode* og,  int lvl) {
+		if (og == nullptr) {
+			return;
+		}
+
 		if (lvl == 1) {
-			cout << setw(sp) << "O.G: " << og->name << " <-> " << "MIRROR:" << cmp->name << " ";
+			cout << og->name << " ";
 		}
 		else if (lvl > 1) {
-			lvlcmp(og->left, cmp->right, lvl-1, sp);
-			lvlcmp(og->right, cmp->left, lvl-1, sp);
+			lvlcmp(og->left, lvl-1);
+			lvlcmp(og->right, lvl-1);
 		}
 	}
-	void printlvls(treeNode* og, treeNode* cmp) {
-		if (height(og) != height(cmp)) { cout << "Not same height trees!!"; return; }
+	void printlvls(treeNode* og, treeNode*cmp ) {
 		int tHeight = height(og);
+
 		for (int i = 1; i <= tHeight; i++) {
-			int sp = tHeight - i;
-			lvlcmp(og, cmp, i, sp);
+			cout << "Lvl" << i << ": ";
+			lvlcmp(og,  i);
+			cout << "|| ";
+			lvlcmp(cmp, i);
 			std::cout << std::endl;
 		}
 	}
@@ -162,6 +173,7 @@ int main() {
 	mirror_edge.bt_head = tree.blackmirror(tree.bt_head);
 	mirror_edge.dipside(mirror_edge.bt_head, 0);
 	cout << "\n\nPart j:\n";
+	cout << "Orignial is printed then mirror:\n";
 	tree.printlvls(tree.bt_head, mirror_edge.bt_head);
 	system("pause");
 }
