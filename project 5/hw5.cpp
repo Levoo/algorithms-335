@@ -1,4 +1,10 @@
-/* INFO */
+/*
+Authors:
+Fernando Cuevas
+Michael Rodriguez
+Class:   CPSC 335 - 12884, Algorithms, Tue/Thur
+Project: Assignment 5, Binary Search Trees
+*/
 
 #include <iostream>
 #include <iomanip>
