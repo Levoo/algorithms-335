@@ -169,9 +169,10 @@ int main() {
 	bst.inorder(bst.t1); 
 	cout << "\nt2 in-order: ";
 	bst.inorder(bst.t2);
-	cout << "part c"; // probably need to construct the tree or something
+	cout << "part c"; // check there shape, fucntion is in notes
 	// question 3
 	cout << "Problem 3:\n"; // no idea on how to approch this, will ask prof tomorrow
-	/...
+	//...
+	// working on number 4, 5, 6 tonight
 	system("pause"); // micheal scott
 }
