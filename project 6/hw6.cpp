@@ -56,8 +56,8 @@ public:
 
 	void bstInsert(node2* bt, std::string newVal) {
 		if (bt == nullptr) {//initializes head of bst
-			bt = newBSTNode(newVal);
-			return;
+			bt = newBSTNode(newVal); // this is the reason for some reason works with t1
+			return;			// but when using node2* bt insertions are not going through 
 		}
 		else {
 			if (newVal[0] <= bt->data[0]) {
