@@ -1,0 +1,86 @@
+#Michael Rodriguez 440 1pm#
+
+.data
+str:  .asciiz   "Enter Scale   :"
+str2: .asciiz   "Enter Temperature:"
+cel:  .asciiz   "Celsius Temperature:"
+far:  .asciiz   "Fahrenheit Temperature:"
+ent:  .asciiz   "\n\n"
+dn:   .asciiz   "done"
+inp:  .space 20
+.text
+main:
+    li $v0,4    #print str
+    la $a0,str
+    syscall
+    
+    li $v0,8    #gets string inp
+    la $a0,inp
+    li $a1,20
+    syscall
+    la $a3,inp
+    lb $a3,($a3)    #gets char in inp
+
+    li $t1,5
+    li $t2,9
+    li $t3,32
+
+    li $a2,'q'  #checking for exit
+    beq $a2,$a3,exit
+    li $a2,'Q'
+    beq $a2,$a3,exit
+
+    li $v0,4    #print str2
+    la $a0,str2
+    syscall
+
+    li $v0,5    #get int
+    syscall
+    move $t0,$v0
+
+    li $a2,'F'  #checks if farenheit entered
+    beq $a2,$a3,faren
+    
+celsi:
+    li $v0,4    #print far
+    la $a0,far
+    syscall
+
+    div $t1,$t2 #math
+    mflo $t4
+    mult $t0,$t4
+    mfhi $t0
+    add $t0,$t0,$t3
+
+    li $v0,1    #printing num and endls
+    move $a0, $t0
+    syscall
+    li $v0,4
+    la $a0,ent
+    syscall
+    jal main
+faren:
+    li $v0,4    #print cel
+    la $a0,cel
+    syscall
+
+    div $t2,$t1 #math
+    mfhi $t4
+    subi $t0,$t0,32
+    mult $t0, $t4
+    mflo $t0
+
+    li $v0,1   #printing num and endls
+    move $a0,$t0
+    syscall
+    li $v0,4
+    la $a0,ent
+    syscall
+    jal main
+exit:
+    li $v0,4    #printing done
+    la $a0,done
+    syscall
+    
+    li $v0, 10
+    syscall
