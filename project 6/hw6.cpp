@@ -24,10 +24,10 @@ public:
 	void createBT() { // man impleementation of bt found on paper
 		btInsert(root, 1, 4);
 		btInsert(root, 9, 5);
-		btInsert(root, 0, 6);
+		btInsert(root, 10, 6);
 		btInsert(root, 2, 2);
 		btInsert(root, 5, 1);
-		btInsert(root, 0, 3);
+		btInsert(root, 20, 3);
 	}
 
 	void btInsert(node* bt, int newVal, int weight) {
@@ -97,15 +97,16 @@ public:
 
 	bool isBST(node* bt) {
 		if (bt == nullptr) return true;
-		if (bt->left != nullptr) { // 3 cases if bothL and R have value if only L has value if R has value only if only root has value
-			if (bt->right != nullptr) {
-				if (bt->left->data <= bt->data <= bt->right->data) {
-					isBST(bt->left);
-					isBST(bt->right);
-				}
-			}
-		}
-		return false;
+		if (bt->left != nullptr && maxNode(bt->left,bt->data)) { // 3 cases if bothL and R have value if only L has value if R has value only if only root has value
+            return false;
+        }
+        if(bt->right != nullptr && maxNode(bt->right,bt->data)){
+            return false;
+        }
+        if(!isBST(bt->left) && !isBST(bt->right)){
+            return false;
+        }
+        return true;
 	}
 
 	int maxNode(node* bt, int max) {
@@ -135,11 +136,12 @@ public:
 	}
 
 	void inorder(node2* bt) {
-		if (bt == nullptr) return;
+		if (bt != nullptr){
 
 		inorder(bt->left);
 		inorder(bt->right);
 		cout << bt->data << " ";
+        }
 	}
 };
 
@@ -165,14 +167,50 @@ int main() {
 		bst.bstInsert(bst.t1, months[i]);
 		bst.bstInsert(bst.t2, months[j--]);
 	}
+    bt.dipside(bt.root,0);
 	cout << "t1 in-order: ";  // part b
-	bst.inorder(bst.t1); 
+	bst.inorder(bst.t1);
 	cout << "\nt2 in-order: ";
 	bst.inorder(bst.t2);
 	cout << "part c"; // check there shape, fucntion is in notes
 	// question 3
+    string x,y;
+    long long num1pt1,num1pt2,num2pt1,num2pt2;
 	cout << "Problem 3:\n"; // no idea on how to approch this, will ask prof tomorrow
+    cout << "Enter a large number       : ";
+    cin >> x;
+    if(x.size() > 12){
+        char buffer[19];
+        x.copy(buffer,x.size()-12,0);
+        buffer[x.size()-12]='\0';
+        x.erase(0,x.size()-12);
+        num1pt1 = stoll(buffer);
+    }
+    num1pt2 = stoll(x);
+
+    cout << "Enter another large number : ";
+    cin >> y;
+    if(y.size() > 12){
+        char buffer[19];
+        y.copy(buffer,y.size()-12,0);
+        buffer[y.size()-12]='\0';
+        y.erase(0,y.size()-12);
+        num2pt1 = stoll(buffer);
+    }
+    num2pt2 = stoll(y);
+    num1pt1 += num2pt1;
+    num1pt2 += num2pt2;
+    x = to_string(num1pt2);
+    if(x.size() > 17){
+        char buffer[19];
+        x.copy(buffer,1,0);
+        buffer[1]='\0';
+        x.erase(0,1);
+        num1pt2 = stoll(buffer);
+        num1pt1 += num1pt2;
+    }
+    cout << num1pt1 << endl;
+    cout << num1pt2;
 	//...
 	// working on number 4, 5, 6 tonight
-	system("pause"); // micheal scott
 }
