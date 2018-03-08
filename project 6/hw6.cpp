@@ -204,44 +204,41 @@ int main() {
 	else cout << "\nAre same tree: Similar inorder but not similar shape\n";
 					  // question 3
 	cout << "Problem 3:\n"; // just copy from here and above to have updateed file
-	//string x, y;
-	//long long num1pt1, num1pt2, num2pt1, num2pt2;
-	//cout << "Problem 3:\n"; // no idea on how to approch this, will ask prof tomorrow
-	//cout << "Enter a large number       : ";
-	//cin >> x;
-	//if (x.size() > 12) {
-	//	char buffer[19];
-	//	x.copy(buffer, x.size() - 12, 0);
-	//	buffer[x.size() - 12] = '\0';
-	//	x.erase(0, x.size() - 12);
-	//	num1pt1 = stoll(buffer);
-	//}
-	//num1pt2 = stoll(x);
+		string x, y;
+	long long num1pt1 = 0, num1pt2 =0, num2pt1=0, num2pt2=0;
+	cout << "Problem 3:\n"; // no idea on how to approch this, will ask prof tomorrow
+	cout << "Enter a large number       : ";
+	cin >> x;
+	if (x.size() > 12) {
+		char buffer[19];
+		x.copy(buffer, x.size() - 12, 0);
+		buffer[x.size() - 12] = '\0';
+		x.erase(0, x.size() - 12);
+		num1pt1 = stoll(buffer);
+	}
+	num1pt2 = stoll(x);
 
-	//cout << "Enter another large number : ";
-	//cin >> y;
-	//if (y.size() > 12) {
-	//	char buffer[19];
-	//	int ysize = y.size() - 12;
-	//	y.copy(buffer, y.size() - 12, 0);
-	//	buffer[y.size() - 12] = '\0';
-	//	y.erase(0, y.size() - 12);
-	//	num2pt1 = stoll(buffer);
-	//}
-	//num2pt2 = stoll(y);
-	//num1pt1 += num2pt1;
-	//num1pt2 += num2pt2;
-	//x = to_string(num1pt2);
-	//if (x.size() > 17) {
-	//	char buffer[19];
-	//	x.copy(buffer, 1, 0);
-	//	buffer[1] = '\0';
-	//	x.erase(0, 1);
-	//	num1pt2 = stoll(buffer);
-	//	num1pt1 += num1pt2;
-	//}
-	//cout << num1pt1 << endl;
-	//cout << num1pt2;
-	//...
-	// working on number 4, 5, 6 tonight
+	cout << "Enter another large number : ";
+	cin >> y;
+	if (y.size() > 12) {
+		char buffer[19];
+		y.copy(buffer, y.size() - 12, 0);
+		buffer[y.size() - 12] = '\0';
+		y.erase(0, y.size() - 12);
+		num2pt1 = stoll(buffer);
+		num1pt1 += num2pt1;
+	}
+	num2pt2 = stoll(y);
+	cout << num1pt1 << num1pt2 << endl;
+	cout << "+" << num2pt1 << num2pt2 << endl;
+	num1pt2 += num2pt2;
+	x = to_string(num1pt2);
+	if (x.size() > 12) {
+		x.erase(0, 1);
+		num1pt2 = stoll(x);
+		num1pt1 += 1;
+	}
+	cout << "--------------------" << endl;
+	cout << num1pt1 << num1pt2 << endl;
+	system("pause");
 }
