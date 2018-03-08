@@ -56,7 +56,8 @@ public:
 
 	void bstInsert(node2* bt, std::string newVal) {
 		if (bt == nullptr) {//initializes head of bst
-			bt = newBSTNode(newVal); // this is the reason for some reason works with t1
+			t1 = new node2;
+			t1 = newBSTNode(newVal); // this is the reason for some reason works with t1
 			return;			// but when using node2* bt insertions are not going through 
 		}
 		else {
@@ -86,7 +87,7 @@ public:
 		tmp->right = nullptr;
 		return tmp;
 	}
-	
+
 	node2* newBSTNode(std::string newVal) {
 		node2*  tmp = new node2;
 		tmp->data = newVal;
@@ -97,28 +98,37 @@ public:
 
 	bool isBST(node* bt) {
 		if (bt == nullptr) return true;
-		if (bt->left != nullptr && maxNode(bt->left,bt->data)) { // 3 cases if bothL and R have value if only L has value if R has value only if only root has value
-            return false;
-        }
-        if(bt->right != nullptr && maxNode(bt->right,bt->data)){
-            return false;
-        }
-        if(!isBST(bt->left) && !isBST(bt->right)){
-            return false;
-        }
-        return true;
+		if (bt->left != nullptr && maxNode(bt->left, bt->data)) { // 3 cases if bothL and R have value if only L has value if R has value only if only root has value
+			return false;
+		}
+		if (bt->right != nullptr && maxNode(bt->right, bt->data)) {
+			return false;
+		}
+		if (!isBST(bt->left) && !isBST(bt->right)) {
+			return false;
+		}
+		return true;
 	}
-
+	// fix max
 	int maxNode(node* bt, int max) {
-		if (bt == nullptr) return max; //return once you have the largest one
-
-		if (max <= bt->data) max = bt->data; // if greater change
-		maxNode(bt->left, max); // else check left and right subtrees for max
-		maxNode(bt->right, max);
-
+		if (bt == nullptr) return 0;
+		else maxx(bt->data, maxNode(bt->left, max), maxNode(bt->right, max));
 	}
 
-	void dipside(node *bt, int sp) {
+	int maxx(int a, int b, int c) {
+		return (a > b &&  a> c) ? a : ((b > c) ? b : c);
+	}
+
+	bool same(node2* bt1, node2* bt2) {
+		if (bt1 == nullptr && t2 == nullptr) return true;
+		else if (bt1 == nullptr || bt2 == nullptr) return false;
+
+		else 
+			return same(bt1->left, bt2->left) && same(bt1->right, bt2->right);
+	}
+
+	template<typename t>
+	void dipside(t *bt, int sp) {
 		if (bt != nullptr) {
 			dipside(bt->right, sp += 5);
 			cout << setw(sp) << bt->data << endl;
@@ -136,81 +146,102 @@ public:
 	}
 
 	void inorder(node2* bt) {
-		if (bt != nullptr){
+		if (bt != nullptr) {
 
-		inorder(bt->left);
-		inorder(bt->right);
-		cout << bt->data << " ";
-        }
+			inorder(bt->left);
+			cout << bt->data << " ";
+			inorder(bt->right);
+		}
 	}
 };
 
 int main() {
-	binaryTree bt, bst;
+	binaryTree bt, bst, rbst;
+	
 	// question 1
 	cout << "Problem 1 a, b, c:\n";
+	
+	cout << "Part 1.a and 1.b\n";
 	bt.createBT(); //part 1.a 
-	cout << "Pre-order: ";
+	bt.dipside(bt.root, 0);
+	cout << "\nPre-order: ";
 	bt.preorder(bt.root); //part 1.b
+	
+	cout << "\nPart 1.c";
 	bool isIt = bt.isBST(bt.root); // part 1.c
-	cout << "\nIs BST: " << isIt << endl;
-	cout << "\nMax: ";
-	cout << bt.maxNode(bt.root, 0) << endl; // part 1.d
+	if(isIt)
+		cout << "\nIs BST: True\n";
+	else
+		 cout << "\nIs BST: False";
+
+	cout << "\nPart 1.d";
+	cout << "\nMax: " << bt.maxNode(bt.root, 0) << endl; // part 1.d
 	cout << "\n";
+
 	// question 2
 	cout << "Problem 2 a, b, c:\n";
 	std::string months[12] = { "Jan", "Feb", "Mar" , "Apr" ,
 		"May" , "Jun" , "Jul" , "Aug" ,
 		"Sep" , "Oct" , "Nov" , "Dec" };
-	int j = 11;
-	for (int i = 0; i < 12; i++) {	//populates bst part 2.a currently not working
+	int j = 12;
+	for (int i = 0; i < 12; i++) {	//populates bst part 2.a / 2.b
 		bst.bstInsert(bst.t1, months[i]);
-		bst.bstInsert(bst.t2, months[j--]);
+		rbst.bstInsert(rbst.t1, months[--j]);
 	}
-    bt.dipside(bt.root,0);
-	cout << "t1 in-order: ";  // part b
+	cout << "Part 2.a\n";
+	cout << "Regular insertion:\n";
+	bst.dipside(bst.t1, 0);
+	cout << "\n-------------------------------\n";
+	cout << "Reverse insertion:\n";
+	rbst.dipside(rbst.t1, 0);
+	
+	cout << "\nPart 2.c:\n"; //part 2.c
+	cout << "t1 in-order: ";  
 	bst.inorder(bst.t1);
 	cout << "\nt2 in-order: ";
-	bst.inorder(bst.t2);
-	cout << "part c"; // check there shape, fucntion is in notes
-	// question 3
-    string x,y;
-    long long num1pt1,num1pt2,num2pt1,num2pt2;
-	cout << "Problem 3:\n"; // no idea on how to approch this, will ask prof tomorrow
-    cout << "Enter a large number       : ";
-    cin >> x;
-    if(x.size() > 12){
-        char buffer[19];
-        x.copy(buffer,x.size()-12,0);
-        buffer[x.size()-12]='\0';
-        x.erase(0,x.size()-12);
-        num1pt1 = stoll(buffer);
-    }
-    num1pt2 = stoll(x);
+	rbst.inorder(rbst.t1);
+	if (bst.same(bst.t1, rbst.t1) == true) cout << "\nAre same tree:  Same inorder and Similar shape \n";
+	else cout << "\nAre same tree: Similar inorder but not similar shape\n";
+					  // question 3
+	cout << "Problem 3:\n"; // just copy from here and above to have updateed file
+	//string x, y;
+	//long long num1pt1, num1pt2, num2pt1, num2pt2;
+	//cout << "Problem 3:\n"; // no idea on how to approch this, will ask prof tomorrow
+	//cout << "Enter a large number       : ";
+	//cin >> x;
+	//if (x.size() > 12) {
+	//	char buffer[19];
+	//	x.copy(buffer, x.size() - 12, 0);
+	//	buffer[x.size() - 12] = '\0';
+	//	x.erase(0, x.size() - 12);
+	//	num1pt1 = stoll(buffer);
+	//}
+	//num1pt2 = stoll(x);
 
-    cout << "Enter another large number : ";
-    cin >> y;
-    if(y.size() > 12){
-        char buffer[19];
-        y.copy(buffer,y.size()-12,0);
-        buffer[y.size()-12]='\0';
-        y.erase(0,y.size()-12);
-        num2pt1 = stoll(buffer);
-    }
-    num2pt2 = stoll(y);
-    num1pt1 += num2pt1;
-    num1pt2 += num2pt2;
-    x = to_string(num1pt2);
-    if(x.size() > 17){
-        char buffer[19];
-        x.copy(buffer,1,0);
-        buffer[1]='\0';
-        x.erase(0,1);
-        num1pt2 = stoll(buffer);
-        num1pt1 += num1pt2;
-    }
-    cout << num1pt1 << endl;
-    cout << num1pt2;
+	//cout << "Enter another large number : ";
+	//cin >> y;
+	//if (y.size() > 12) {
+	//	char buffer[19];
+	//	int ysize = y.size() - 12;
+	//	y.copy(buffer, y.size() - 12, 0);
+	//	buffer[y.size() - 12] = '\0';
+	//	y.erase(0, y.size() - 12);
+	//	num2pt1 = stoll(buffer);
+	//}
+	//num2pt2 = stoll(y);
+	//num1pt1 += num2pt1;
+	//num1pt2 += num2pt2;
+	//x = to_string(num1pt2);
+	//if (x.size() > 17) {
+	//	char buffer[19];
+	//	x.copy(buffer, 1, 0);
+	//	buffer[1] = '\0';
+	//	x.erase(0, 1);
+	//	num1pt2 = stoll(buffer);
+	//	num1pt1 += num1pt2;
+	//}
+	//cout << num1pt1 << endl;
+	//cout << num1pt2;
 	//...
 	// working on number 4, 5, 6 tonight
 }
