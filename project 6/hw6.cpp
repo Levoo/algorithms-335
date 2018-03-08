@@ -226,11 +226,11 @@ int main() {
 		buffer[y.size() - 12] = '\0';
 		y.erase(0, y.size() - 12);
 		num2pt1 = stoll(buffer);
-		num1pt1 += num2pt1;
 	}
 	num2pt2 = stoll(y);
 	cout << num1pt1 << num1pt2 << endl;
 	cout << "+" << num2pt1 << num2pt2 << endl;
+	num1pt1 += num2pt1;
 	num1pt2 += num2pt2;
 	x = to_string(num1pt2);
 	if (x.size() > 12) {
