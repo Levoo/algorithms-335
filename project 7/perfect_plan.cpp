@@ -12,10 +12,10 @@ class pfd { // class to implement Perfect Fib Distrution
 		std::vector<int> oQuatro = {1, 0, 0, 0}; // will be vectors to make it easier, actually we can just use arrays...
 		int ee[15] = { 76, 97, 45, 108, 105, 45, 108, 117, 45, 108, 101, 45, 108, 111, 46 };
 		int fSize;
-		int nextSize;
+		int dRecords;
 		int tmpSize = 1;
 		bool inTable = false;
-		//wip
+		//DONE
 		void pfd_order_three() {
 			std::cout << " PFD of order 3\n";
 			std::cout << "   |f|   |f1| |f2| |f3|\n";
@@ -31,14 +31,13 @@ class pfd { // class to implement Perfect Fib Distrution
 						break;								  // dont like the break, maybe other way???
 					}
 				}
-			
-
-			std::cout << "DEBUG\n";
-			display_order_3_line();
+			if (dRecords > 0) // te-he
+				std::cout << "Use <" << oTrois[0] << "-" << oTrois[1] << "-" << oTrois[2] << "> distribution with " << dRecords << " dummy records\n";
+			else
+				std::cout << "Use <" << oTrois[0] << "-" << oTrois[1] << "-" << oTrois[2] << "> distribution\n";
 		}
-		
+		//DONE
 		void get_next_order_three() {
-			
 			int f1 = oTrois[0]; // a
 			int f2 = oTrois[1]; // b
 			int f3 = oTrois[2]; // c
@@ -47,15 +46,16 @@ class pfd { // class to implement Perfect Fib Distrution
 			oTrois[1] = f1 + f3;
 			oTrois[2] = f1; // can wemake this look more d@nk ???
 			tmpSize = oTrois[0] + oTrois[1] + oTrois[2];
+			dRecords = tmpSize - fSize;
 		}
-
+		//DONE
 		void display_order_3_line() {
 			std::cout << std::setw(5) << tmpSize
 				<< std::setw(5) << oTrois[0]
 				<< std::setw(5) << oTrois[1]
 				<< std::setw(5) << oTrois[2] << std::endl;
 		}
-		//wip
+		//wip logic should be same for 3 just add one more to amke 4
 		void pfd_order_four() {
 
 		}
