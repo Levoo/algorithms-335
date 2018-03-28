@@ -39,6 +39,30 @@ public:
 		tmpSize = 1;
 	}
 	//DONE
+	void pfd_order_four() {
+		std::cout << " PFD of order 4\n";
+		std::cout << "   |f|   |f1| |f2| |f3| |f4|\n";
+		std::cout << " --------------------------\n";
+		if (fSize == 1) // base case 
+			display_order_line(3);
+		else
+			while (tmpSize <= fSize) { // less than or equal to for lets say size inputed is actually in table
+				display_order_line(4);
+				get_next_order(4); // next version is already here so if file size is not in table, next lvl is already calculated even though we stop the loop
+				if (tmpSize == fSize || tmpSize > fSize) { //first boolean -  check to make sure we dont go to next order if exists in table
+					display_order_line(4);				   // second boolean - check to make sure we dont exit loop before printing pdf order
+					break;								  // dont like the break, maybe other way???
+				}
+			}
+		if (dRecords > 0) // te-he
+			std::cout << "Use <" << oQuatro[0] << "-" << oQuatro[1] << "-" << oQuatro[2] << "-" << oQuatro[3] << "> distribution with " << dRecords << " dummy records\n";
+		else
+			std::cout << "Use <" << oQuatro[0] << "-" << oQuatro[1] << "-" << oQuatro[2] << "-" << oQuatro[3] << "> distribution\n";
+
+		dRecords = 0; // reset 
+		tmpSize = 1;
+	}
+	//DONE
 	void get_next_order(int order_flag) {
 		if (order_flag == 3) {
 			int f1 = oTrois[0]; // a
@@ -80,36 +104,14 @@ public:
 					  << std::setw(5) << oQuatro[3] << std::endl;
 		}
 	}
-	//wip logic should be same for 3 just add one more to amke 4
-	void pfd_order_four() {
-		std::cout << " PFD of order 4\n";
-		std::cout << "   |f|   |f1| |f2| |f3| |f4|\n";
-		std::cout << " --------------------------\n";
-		if (fSize == 1) // base case 
-			display_order_line(3);
-		else
-			while (tmpSize <= fSize) { // less than or equal to for lets say size inputed is actually in table
-				display_order_line(4);
-				get_next_order(4); // next version is already here so if file size is not in table, next lvl is already calculated even though we stop the loop
-				if (tmpSize == fSize || tmpSize > fSize) { //first boolean -  check to make sure we dont go to next order if exists in table
-					display_order_line(4);				   // second boolean - check to make sure we dont exit loop before printing pdf order
-					break;								  // dont like the break, maybe other way???
-				}
-			}
-		if (dRecords > 0) // te-he
-			std::cout << "Use <" << oQuatro[0] << "-" << oQuatro[1] << "-" << oQuatro[2] << "-" << oQuatro[3] << "> distribution with " << dRecords << " dummy records\n";
-		else
-			std::cout << "Use <" << oQuatro[0] << "-" << oQuatro[1] << "-" << oQuatro[2] << "-" << oQuatro[3] << "> distribution\n";
-
-		dRecords = 0; // reset 
-		tmpSize = 1;
-	}
-
+	//WIP
+	void sort_distro() {} // will be used to get each step of sorting for order 3 and 4, will be helper function in pfd_order_*
+	// DONE
 	void set_file_size(int amt) {
 		fSize = amt;
 	}
 
-	void eee() {
+	void eee() { // run it ....
 		for (int i = 0; i < 15; i++) {
 			std::cout << char(ee[i]);
 		}
@@ -124,7 +126,7 @@ int main() {
 			   // in loop
 	std::cout << "Enter the file size: "; // prompt user and assume valid input
 	std::cin >> brows;
-
+	// display orders
 	perf.set_file_size(brows);
 	perf.pfd_order_three();
 	perf.pfd_order_four();
