@@ -2,11 +2,15 @@
 
 #include <iostream>
 #include <vector>
+#include <algorithm>
 #include <string>
 #include <iomanip>
 //using namespace std; for my poor boi michi
 
-class pfd { // class to implement Perfect Fib Distrution
+#define ORDER_THREE_F 3
+#define ORDER_FOUR_F 4
+
+class pfd { // class to implement Perfect Fib Distrution, should it be a class??
 public:
 	std::vector<int> oTrois = { 1, 0, 0 };  // order 3 and order 4,
 	std::vector<int> oQuatro = { 1, 0, 0, 0 }; // will be vectors to make it easier, actually we can just use arrays...
@@ -20,13 +24,13 @@ public:
 		std::cout << "   |f|   |f1| |f2| |f3|\n";
 		std::cout << " --------------------------\n";
 		if (fSize == 1) // base case 
-			display_order_line(3);
+			display_order_line(ORDER_THREE_F);
 		else
 			while (tmpSize <= fSize) { // less than or equal to for lets say size inputed is actually in table
-				display_order_line(3);
-				get_next_order(3); // next version is already here so if file size is not in table, next lvl is already calculated even though we stop the loop
+				display_order_line(ORDER_THREE_F);
+				get_next_order(ORDER_THREE_F); // next version is already here so if file size is not in table, next lvl is already calculated even though we stop the loop
 				if (tmpSize == fSize || tmpSize > fSize) { //first boolean -  check to make sure we dont go to next order if exists in table
-					display_order_line(3);				   // second boolean - check to make sure we dont exit loop before printing pdf order
+					display_order_line(ORDER_THREE_F);				   // second boolean - check to make sure we dont exit loop before printing pdf order
 					break;								  // dont like the break, maybe other way???
 				}
 			}
@@ -34,6 +38,15 @@ public:
 			std::cout << "Use <" << oTrois[0] << "-" << oTrois[1] << "-" << oTrois[2] << "> distribution with " << dRecords << " dummy records\n";
 		else
 			std::cout << "Use <" << oTrois[0] << "-" << oTrois[1] << "-" << oTrois[2] << "> distribution\n";
+
+
+		//-----------------------------
+		std::cout << "   |f|   |f1| |f2| |f3|\n";
+		std::cout << " --------------------------\n";
+		while (tmpSize > 0) {
+			display_order_line(ORDER_THREE_F);
+			sort_distro(ORDER_THREE_F);
+		}
 
 		dRecords = 0; // reset for order 4
 		tmpSize = 1;
@@ -44,13 +57,13 @@ public:
 		std::cout << "   |f|   |f1| |f2| |f3| |f4|\n";
 		std::cout << " --------------------------\n";
 		if (fSize == 1) // base case 
-			display_order_line(3);
+			display_order_line(ORDER_FOUR_F);
 		else
 			while (tmpSize <= fSize) { // less than or equal to for lets say size inputed is actually in table
-				display_order_line(4);
-				get_next_order(4); // next version is already here so if file size is not in table, next lvl is already calculated even though we stop the loop
+				display_order_line(ORDER_FOUR_F);
+				get_next_order(ORDER_FOUR_F); // next version is already here so if file size is not in table, next lvl is already calculated even though we stop the loop
 				if (tmpSize == fSize || tmpSize > fSize) { //first boolean -  check to make sure we dont go to next order if exists in table
-					display_order_line(4);				   // second boolean - check to make sure we dont exit loop before printing pdf order
+					display_order_line(ORDER_FOUR_F);				   // second boolean - check to make sure we dont exit loop before printing pdf order
 					break;								  // dont like the break, maybe other way???
 				}
 			}
@@ -61,6 +74,8 @@ public:
 
 		dRecords = 0; // reset 
 		tmpSize = 1;
+
+		
 	}
 	//DONE
 	void get_next_order(int order_flag) {
@@ -105,10 +120,35 @@ public:
 		}
 	}
 	//WIP
-	void sort_distro() {} // will be used to get each step of sorting for order 3 and 4, will be helper function in pfd_order_*
+	void sort_distro(int order_flag) {
+		// find min then use that to sub, if answer is -min cast to +
+		if (order_flag == ORDER_THREE_F) {
+			int min = min_val(ORDER_THREE_F);
+			tmpSize = min;
+			oTrois[0] -= min;
+			oTrois[1] -= min;
+			oTrois[2] -= min;
+		}
+	} // will be used to get each step of sorting for order 3 and 4, will be helper function in pfd_order_*
 	// DONE
 	void set_file_size(int amt) {
 		fSize = amt;
+	}
+
+	int min_val(int order_flag) {
+		if (order_flag == ORDER_THREE_F) {
+			int min = oTrois[0]; // assume first element is min
+			for (int i = 0; i < oTrois.size(); i++) {
+				if (oTrois[i] < min && oTrois[i] != 0)
+					min = oTrois[i];
+			}
+			return min;
+		}
+		else if(order_flag == ORDER_FOUR_F){
+
+		}
+		else
+			return 0;
 	}
 
 	void eee() { // run it ....
