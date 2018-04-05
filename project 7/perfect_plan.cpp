@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <vector>
+#include <cmath>
 #include <algorithm>
 #include <string>
 #include <iomanip>
@@ -43,11 +44,17 @@ public:
 		//-----------------------------
 		std::cout << "   |f|   |f1| |f2| |f3|\n";
 		std::cout << " --------------------------\n";
-		while (tmpSize > 0) {
+		int count = 0;
+		std::cout << std::setw(5) << tmpSize
+					  << std::setw(5) << "0"
+					  << std::setw(5) << "0"
+					  << std::setw(5) << "0" << std::endl;
+		tmpSize = 0;
+		while ((tmpSize+oTrois[0] + oTrois[1] + oTrois[2]) != 1) {
 			display_order_line(ORDER_THREE_F);
 			sort_distro(ORDER_THREE_F);
 		}
-
+			display_order_line(ORDER_THREE_F);
 		dRecords = 0; // reset for order 4
 		tmpSize = 1;
 	}
@@ -72,9 +79,23 @@ public:
 		else
 			std::cout << "Use <" << oQuatro[0] << "-" << oQuatro[1] << "-" << oQuatro[2] << "-" << oQuatro[3] << "> distribution\n";
 
-		dRecords = 0; // reset 
+				//-----------------------------
+		std::cout << "   |f|   |f1| |f2| |f3| |f4|\n";
+		std::cout << " --------------------------\n";
+		int count = 0;
+		std::cout << std::setw(5) << tmpSize
+					  << std::setw(5) << "0"
+					  << std::setw(5) << "0"
+					  << std::setw(5) << "0"
+					  << std::setw(5) << "0" << std::endl;
+		tmpSize = 0;
+		while ((tmpSize+oQuatro[0] + oQuatro[1] + oQuatro[2]+ oQuatro[3]) != 1) {
+			display_order_line(ORDER_FOUR_F);
+			sort_distro(ORDER_FOUR_F);
+		}
+			display_order_line(ORDER_FOUR_F);
+		dRecords = 0; // reset for order 4
 		tmpSize = 1;
-
 		
 	}
 	//DONE
@@ -119,15 +140,37 @@ public:
 					  << std::setw(5) << oQuatro[3] << std::endl;
 		}
 	}
+	void absitbby(){
+		tmpSize = abs(tmpSize);
+		oTrois[0] = abs(oTrois[0]);
+		oTrois[1] = abs(oTrois[1]);
+		oTrois[2] = abs(oTrois[2]);
+		oQuatro[0] = abs(oQuatro[0]);
+
+		oQuatro[0] = abs(oQuatro[0]);
+		oQuatro[1] = abs(oQuatro[1]);
+		oQuatro[2] = abs(oQuatro[2]);
+		oQuatro[3] = abs(oQuatro[3]);
+	}
 	//WIP
 	void sort_distro(int order_flag) {
 		// find min then use that to sub, if answer is -min cast to +
 		if (order_flag == ORDER_THREE_F) {
 			int min = min_val(ORDER_THREE_F);
-			tmpSize = min;
+			tmpSize -= min;
 			oTrois[0] -= min;
 			oTrois[1] -= min;
 			oTrois[2] -= min;
+			absitbby();
+		}
+		else if (order_flag == ORDER_FOUR_F) {
+			int min = min_val(ORDER_FOUR_F);
+			tmpSize -= min;
+			oQuatro[0] -= min;
+			oQuatro[1] -= min;
+			oQuatro[2] -= min;
+			oQuatro[3] -= min;
+			absitbby();
 		}
 	} // will be used to get each step of sorting for order 3 and 4, will be helper function in pfd_order_*
 	// DONE
@@ -136,16 +179,21 @@ public:
 	}
 
 	int min_val(int order_flag) {
+		int min = tmpSize; // assume first element is mil
 		if (order_flag == ORDER_THREE_F) {
-			int min = oTrois[0]; // assume first element is min
+
 			for (int i = 0; i < oTrois.size(); i++) {
-				if (oTrois[i] < min && oTrois[i] != 0)
+				if ((oTrois[i] < min && oTrois[i] != 0) || min == 0)
 					min = oTrois[i];
 			}
 			return min;
 		}
 		else if(order_flag == ORDER_FOUR_F){
-
+			for (int i = 0; i < oQuatro.size(); i++) {
+				if ((oQuatro[i] < min && oQuatro[i] != 0) || min == 0)
+					min = oQuatro[i];
+			}
+			return min;
 		}
 		else
 			return 0;
