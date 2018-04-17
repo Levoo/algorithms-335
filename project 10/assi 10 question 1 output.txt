@@ -1,0 +1,120 @@
+part a
+-----------------------------------
+For number 12 put in position 8
+For number 44 put in position 6
+For number 13 put in position 10
+        Collision at position 6 adding number 88 to this positions linked list
+        Collision at position 8 adding number 23 to this positions linked list
+For number 94 put in position 7
+        Collision at position 6 adding number 11 to this positions linked list
+        Collision at position 7 adding number 39 to this positions linked list
+For number 20 put in position 2
+For number 16 put in position 5
+ Pos   items
+| 1 | empty...
+| 2 | 20
+| 3 | empty...
+| 4 | empty...
+| 5 | 16
+| 6 | 44 88 11
+| 7 | 94 39
+| 8 | 12 23
+| 9 | empty...
+| 10 | 13
+| 11 | empty...
+
+------------------------------
+part b +1 the positions 
+------------------------------
+For number 12 put in position 7
+For number 44 put in position 5
+For number 13 put in position 9
+---
+  Collision for num 88 at pos 5:
+        Checking position 7
+        Checking position 9
+        Checking position 0
+        Position 0 has been chosen for num 88
+---
+---
+  Collision for num 23 at pos 7:
+        Checking position 9
+        Checking position 0
+        Checking position 2
+        Position 2 has been chosen for num 23
+---
+For number 94 put in position 6
+---
+  Collision for num 11 at pos 5:
+        Checking position 7
+        Checking position 9
+        Checking position 0
+        Checking position 2
+        Checking position 4
+        Position 4 has been chosen for num 11
+---
+---
+  Collision for num 39 at pos 6:
+        Checking position 8
+        Position 8 has been chosen for num 39
+---
+For number 20 put in position 1
+---
+  Collision for num 16 at pos 4:
+        Checking position 6
+        Checking position 8
+        Checking position 10
+        Position 10 has been chosen for num 16
+---
+ Pos   items
+| 1 |  88
+| 2 |  20
+| 3 |  23
+| 4 | empty...
+| 5 |  11
+| 6 |  44
+| 7 |  94
+| 8 |  12
+| 9 |  39
+| 10 |  13
+| 11 |  16
+------------------------------
+part c
+------------------------------
+For number 12 put in position 8 in HT 1.
+For number 44 put in position 6 in HT 1.
+For number 13 put in position 10 in HT 1.
+---
+  Collision for num 88 at pos 6:
+  checking second hash table
+  For number 88 put in position 6 in HT 2.
+---
+  Collision for num 23 at pos 8:
+  checking second hash table
+  For number 23 put in position 8 in HT 2.
+For number 94 put in position 7 in HT 1.
+---
+  Collision for num 11 at pos 6:
+  checking second hash table
+        Checking position 8
+        Checking position 3
+        Position 3 has been chosen for num 11
+---
+---
+  Collision for num 39 at pos 7:
+  checking second hash table
+  For number 39 put in position 7 in HT 2.
+For number 20 put in position 2 in HT 1.
+For number 16 put in position 5 in HT 1.
+ Pos   HT1  HT2
+| 1 |  -    -
+| 2 |  20   -
+| 3 |  -    11
+| 4 |  -    -
+| 5 |  16   -
+| 6 |  44   88
+| 7 |  94   39
+| 8 |  12   23
+| 9 |  -    -
+| 10 |  13   -
+| 11 |  -    -
